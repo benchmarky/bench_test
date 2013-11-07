@@ -8,7 +8,7 @@ usage () {
 	echo -e "\t-h - show this help"
 	echo -e "\t-p - provider"
 	echo -e "\t-c - tariff"
-	echo -e "\t-t - which tests to run (comma-separated list (disk,unixbench,bandwidth)"
+	echo -e "\t-t - which tests to run (comma-separated list (disk,unixbench,bandwidth) or all"
 	echo -e "\t-a - don't public results"
 	echo -e "\t-q - show less messages"
 }
