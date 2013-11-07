@@ -1,7 +1,7 @@
 #!/bin/bash
 SCRIPT_VERSION='0.1.0'
 UPLOAD_URL='http://google.com'
-
+REPO_URL='https://raw.github.com/benchmarky/bench_test/master/'
 usage () {
 	echo "Usage: bash $0 [ -h ] -e email@example.com -p SuperHosting.com -c BigServer-x2 -t all [ -a ] [ -q ]" 
 	echo -e "\t-e - email"
@@ -182,63 +182,23 @@ if [ "$TO_INSTALL" != '' ]; then
 fi
 
 # Prepare required tests
-IOPING_VERSION=0.6
-IOPING_DIR=ioping-$IOPING_VERSION
-FIO_VERSION=2.0.9
+FIO_VERSION=2.1.2
 FIO_DIR=fio-$FIO_VERSION
 UNIX_BENCH_VERSION=5.1.3
 UNIX_BENCH_DIR=UnixBench-$UNIX_BENCH_VERSION
 
 echo "==TESTSVERSIONS==" >>$LOGFILE
-echo "IOPING_VERSION: ${IOPING_VERSION}" >>$LOGFILE
-echo "IOPING_DIR: ${IOPING_DIR}" >>$LOGFILE
 echo "FIO_VERSION: ${FIO_VERSION}" >>$LOGFILE
 echo "FIO_DIR: ${FIO_DIR}" >>$LOGFILE
 echo "UNIX_BENCH_VERSION: ${UNIX_BENCH_VERSION}" >>$LOGFILE
 echo "UNIX_BENCH_DIR: ${UNIX_BENCH_DIR}" >>$LOGFILE
 
 if [ $NEED_DISK = 'yes' ]; then
-	require_download FIO fio-$FIO_DIR https://github.com/Crowd9/Benchmark/raw/master/fio-$FIO_VERSION.tar.gz
-	require_download IOPing $IOPING_DIR https://ioping.googlecode.com/files/ioping-$IOPING_VERSION.tar.gz
+	require_download FIO fio-$FIO_DIR ${REPO_URL}${fio}-${FIO_VERSION}.tar.gz
 
-cat > $FIO_DIR/reads.ini << EOF
-[global]
-randrepeat=1
-ioengine=libaio
-bs=4k
-ba=4k
-size=1G
-direct=1
-gtod_reduce=1
-norandommap
-iodepth=64
-numjobs=1
-
-[randomreads]
-startdelay=0
-filename=sb-io-test
-readwrite=randread
-EOF
-
-cat > $FIO_DIR/writes.ini << EOF
-[global]
-randrepeat=1
-ioengine=libaio
-bs=4k
-ba=4k
-size=1G
-direct=1
-gtod_reduce=1
-norandommap
-iodepth=64
-numjobs=1
-
-[randomwrites]
-startdelay=0
-filename=sb-io-test
-readwrite=randwrite
-EOF
-
+	wget -q $REPO_URL/fio.conf.d/reads.ini
+	wget -q $REPO_URL/fio.conf.d/writes.ini
+	wget -q $REPO_URL/fio.conf.d/rw.ini
 
 fi
 if [ $NEED_UNIXBENCH = 'yes' ]; then
@@ -292,23 +252,13 @@ if [ $NEED_DISK = 'yes' ]; then
 	# DD
 	echo "Running dd tests"
 
-	echo "dd 1Mx1k fdatasync: `dd if=/dev/zero of=sb-io-test bs=1M count=1k conv=fdatasync 2>&1`" >> $LOGFILE
-	echo "dd 64kx16k fdatasync: `dd if=/dev/zero of=sb-io-test bs=64k count=16k conv=fdatasync 2>&1`" >> $LOGFILE
-	echo "dd 1Mx1k dsync: `dd if=/dev/zero of=sb-io-test bs=1M count=1k oflag=dsync 2>&1`" >> $LOGFILE
-	echo "dd 64kx16k dsync: `dd if=/dev/zero of=sb-io-test bs=64k count=16k oflag=dsync 2>&1`" >> $LOGFILE
+	echo "dd 1Mx1k fdatasync: `dd if=/dev/zero of=ddtest.iso bs=1M count=1k conv=fdatasync 2>&1`" >> $LOGFILE
+	echo "dd 64kx16k fdatasync: `dd if=/dev/zero of=ddtest.iso bs=64k count=16k conv=fdatasync 2>&1`" >> $LOGFILE
+	echo "dd 1Mx1k dsync: `dd if=/dev/zero of=ddtest.iso bs=1M count=1k oflag=dsync 2>&1`" >> $LOGFILE
+	echo "dd 64kx16k dsync: `dd if=/dev/zero of=ddtest.iso bs=64k count=16k oflag=dsync 2>&1`" >> $LOGFILE
 
-	rm -f sb-io-test
+	rm -f ddtest.iso
 
-	echo "Compiling IOPing"
-	cd $IOPING_DIR
-	make >> $LOGFILE 2>&1
-	echo "Running IOPing tests"
-	echo "IOPing I/O: `./ioping -c 10 . 2>&1 `
-IOPing seek rate: `./ioping -RD . 2>&1 `
-IOPing sequential: `./ioping -RL . 2>&1`
-IOPing cached: `./ioping -RC . 2>&1`" >> $LOGFILE
-	cd ..
-	
 	echo "Compiling FIO"
 	cd $FIO_DIR
 	make >> $LOGFILE 2>&1
@@ -319,6 +269,10 @@ IOPing cached: `./ioping -RC . 2>&1`" >> $LOGFILE
 
 	echo "FIO random writes:
 	`./fio writes.ini 2>&1`
+	Done" >> $LOGFILE
+
+	echo "FIO random rw:
+	`./fio rw.ini 2>&1`
 	Done" >> $LOGFILE
 	cd ..
 fi
