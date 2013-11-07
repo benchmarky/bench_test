@@ -4,9 +4,6 @@ To start benchmarking please run:
 `wget https://github.com/benchmarky/bench_test/raw/master/script.sh && bash script.sh -e EMAIL -p PROVIDER -c PLAN -t all`
 Please be sure to provide correct email since we'll send results to it.
 For more information about script parameters please run:
-```bash
-bash script.sh -h
-```
 ```
 $ bash script.sh -h
 Usage: bash script.sh [ -h ] -e email@example.com -p SuperHosting.com -c BigServer-x2 -t all [ -a ] [ -q ]
