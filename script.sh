@@ -196,10 +196,6 @@ echo "UNIX_BENCH_DIR: ${UNIX_BENCH_DIR}" >>$LOGFILE
 if [ $NEED_DISK = 'yes' ]; then
 	require_download FIO fio-$FIO_DIR ${REPO_URL}${fio}-${FIO_VERSION}.tar.gz
 
-	wget -q $REPO_URL/fio.conf.d/reads.ini
-	wget -q $REPO_URL/fio.conf.d/writes.ini
-	wget -q $REPO_URL/fio.conf.d/rw.ini
-
 fi
 if [ $NEED_UNIXBENCH = 'yes' ]; then
 	require_download UnixBench $UNIX_BENCH_DIR https://github.com/Crowd9/Benchmark/raw/master/UnixBench$UNIX_BENCH_VERSION-patched.tgz
@@ -269,6 +265,10 @@ if [ $NEED_DISK = 'yes' ]; then
 	echo "Compiling FIO"
 	cd $FIO_DIR
 	make >> $LOGFILE 2>&1
+	echo "Downloading FIO configs"
+	wget -q $REPO_URL/fio.conf.d/reads.ini
+	wget -q $REPO_URL/fio.conf.d/writes.ini
+	wget -q $REPO_URL/fio.conf.d/rw.ini
 	echo "Running FIO"
 	echo "FIO random reads:
 	`./fio reads.ini 2>&1`
