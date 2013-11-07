@@ -218,6 +218,13 @@ echo "PROCINFO: " >>$LOGFILE
 cat /proc/cpuinfo >>$LOGFILE
 echo "DISKS: " >> $LOGFILE
 df >> $LOGFILE
+if [ -f /sys/block/sda/device/model ]; then
+	cat /sys/block/sda/device/model >> $LOGFILE
+
+fi
+if [ -f /sys/block/sda/device/vendor ]; then
+	cat /sys/block/sda/device/vendor >> $LOGFILE
+fi
 echo "MEMORY: " >> $LOGFILE
 free >> $LOGFILE
 
