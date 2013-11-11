@@ -6,7 +6,7 @@ Please be sure to provide correct email since we'll send results to it.
 For more information about script parameters please run the script with -h parameter:
 ```
 $ bash script.sh -h
-Usage: bash script.sh [ -h ] -e email@example.com -p SuperHosting.com -c BigServer-x2 -t all [ -a ] [ -q ]
+Usage: bash script.sh [ -h ] -e 'email@email.com' -p 'Hosting Company, Inc.' -c 'Awesome Plan' -t all [ -a ] [ -q ]
 	-e - email
 	-h - show this help
 	-p - provider
