@@ -1,7 +1,7 @@
 ## Benchmarking
 ### How to run script
 To start benchmarking please run:
-`wget https://raw.github.com/benchmarky/bench_test/master/script.sh&&bash script.sh -e email@email.com -p PROVIDER -c PLAN -t all`
+`wget -N https://raw.github.com/benchmarky/bench_test/master/script.sh&&bash script.sh -e email@email.com -p PROVIDER -c PLAN -t all`
 Please be sure to provide correct email since we'll send results to it.
 For more information about script parameters please run the script with -h parameter:
 ```
