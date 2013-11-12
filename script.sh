@@ -199,7 +199,7 @@ if [ $NEED_DISK = 'yes' ]; then
 
 fi
 if [ $NEED_UNIXBENCH = 'yes' ]; then
-	require_download UnixBench $UNIX_BENCH_DIR https://github.com/Crowd9/Benchmark/raw/master/UnixBench$UNIX_BENCH_VERSION-patched.tgz
+	require_download UnixBench $UNIX_BENCH_DIR ${REPO_URL}UnixBench$UNIX_BENCH_VERSION-patched.tgz
 	mv -f UnixBench $UNIX_BENCH_DIR 2>/dev/null
 fi 
 
