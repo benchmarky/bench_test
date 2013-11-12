@@ -195,7 +195,6 @@ echo "UNIX_BENCH_DIR: ${UNIX_BENCH_DIR}" >>$LOGFILE
 
 if [ $NEED_DISK = 'yes' ]; then
 	require_download FIO fio-$FIO_DIR ${REPO_URL}fio-${FIO_VERSION}.tar.gz
-	exit 
 
 fi
 if [ $NEED_UNIXBENCH = 'yes' ]; then
