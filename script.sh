@@ -34,13 +34,13 @@ while getopts "he:p:t:c:aq" opt; do
 		usage
 		exit 0
 		;;
-	e)	EMAIL=$OPTARG
+	e)	EMAIL="$OPTARG"
 		;;	
-	p)	PROVIDER=$OPTARG
+	p)	PROVIDER="$OPTARG"
 		;;	
-	c)	TARIFF=$OPTARG
+	c)	TARIFF="$OPTARG"
 		;;	
-	t)	TESTS=$OPTARG
+	t)	TESTS="$OPTARG"
 		;;	
 	a)	ANONYOMOUS='yes'
 		;;
@@ -50,7 +50,7 @@ while getopts "he:p:t:c:aq" opt; do
 done
 
 # Validate parameters
-if [ $EMAIL = 'null' -o $PROVIDER = 'null' -o $TARIFF = 'null' ]; then
+if [ "$EMAIL" = 'null' -o "$PROVIDER" = 'null' -o "$TARIFF" = 'null' ]; then
 	usage
 	exit 0
 fi
@@ -67,7 +67,7 @@ Or please look at the log output.
 You can disconnect from log by Ctrl+C anytime."
 	rm -f $SHOWLOG $LOGFILE
 	touch $SHOWLOG
-	nohup bash $0 $@ >> $SHOWLOG 2>&1 &
+	nohup bash "$0" "$@" >> $SHOWLOG 2>&1 &
 	tail -F $SHOWLOG -n 25
 	exit 0
 fi
