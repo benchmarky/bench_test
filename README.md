@@ -1,6 +1,6 @@
 ## [Benchmarky](http://benchmarky.com/) Linux Server Benchmark
 ### What is it?
-This tool is a lightweight benchmarking script made for testing CPU, Disk (HDD or SSD) and Bandwidth performance of Linux servers. The tool is composed of simple and trusted open-source benchmarking suites.
+This tool is a lightweight benchmarking script made for testing CPU, Disk (HDD or SSD) and Bandwidth performance in Linux servers. The tool is composed of simple and trusted open-source benchmarking suites.
 ### What will it do?
 This benchmark will:
 * Download and install packages necesarry to run benchmark test (don't worry, it will clean up after)
