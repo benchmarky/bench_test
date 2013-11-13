@@ -19,18 +19,18 @@ First replace the sections enclosed in apostrophe marks (') with your details. (
 wget -N https://raw.github.com/benchmarky/bench_test/master/script.sh&&bash script.sh -e 'email@email.com' -p 'Hostingcompany.com' -c 'Big Premium Plan with SSD and CentOS' -t all
 ```
 
-Noteworthy tips & comments:
+### Noteworthy tips & comments:
 * This script has been tested on Linux environments only, including Ubuntu, Debian, and CentOS.
 * If possible, please pause any and all resource intensive services you are running such as databases, web server, etc. This will help improve the consistency of benchmark results.
 * WARNING: You run this script at your own risk. Benchmarky accepts no responsability for any damage this script may cause.
 
-For a reference guide about script parameters please run the script with -h parameter:
+For a reference guide about script parameters please run the script with -h parameter, like the following example:
 
 ```bash
 $ bash script.sh -h
 ```
 It will return the following:
-```bash
+```
 Usage: bash script.sh [ -h ] -e 'email@email.com' -p 'Hosting Company, Inc.' -c 'Awesome Plan' -t all [ -a ] [ -q ]
 	-e - email
 	-h - show this help
@@ -40,3 +40,4 @@ Usage: bash script.sh [ -h ] -e 'email@email.com' -p 'Hosting Company, Inc.' -c 
 	-a - keep report private
 	-q - show less messages
 ```
+For more information about this and other benchmarking tools please check out our website and community at [http://benchmarky.com](http://benchmarky.com/) 
