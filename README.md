@@ -27,7 +27,7 @@ wget -N https://raw.github.com/benchmarky/bench_test/master/script.sh&&bash scri
 For a reference guide about script parameters please run the script with -h parameter, like the following example:
 
 ```bash
-$ bash script.sh -h
+bash script.sh -h
 ```
 It will return the following:
 ```
