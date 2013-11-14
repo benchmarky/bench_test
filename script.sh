@@ -317,7 +317,9 @@ fi
 echo "
 ### FINISH ####
 
-Success! Script has done its work.
+Success! ¡Éxito! Succès! Erfolg!
+
+Script has done its work.
 
 You will receive a detailed benchmark report by email, 
 filled with results comparisons and explanations.
