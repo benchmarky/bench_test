@@ -60,16 +60,7 @@ fi
 
 # Here we would like to go to background
 if test -t 1 ; then
-	echo "__________________________________________________________
-
-  ___              _                   _        
- | _ ) ___ _ _  __| |_  _ __  __ _ _ _| |___  _ 
- | _ \/ -_) ' \/ _| ' \| '  \/ _` | '_| / / || |
- |___/\___|_||_\__|_||_|_|_|_\__,_|_| |_\_\_,  |
-                                           |__/                        
-__________________________________________________________	
-
-Perfect! Script is now running.
+	echo "Perfect! Script is now running.
 
 For your convenience, script will switch to the background.
 
