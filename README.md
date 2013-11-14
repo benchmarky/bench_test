@@ -8,13 +8,13 @@ This benchmark will:
 * Upload tests results over to Benchmarky.com to see how it stacks up against others
 
 ### How to run script
-To start benchmarking simply access your server's terminal and run:
+To start benchmarking simply access your server's terminal and run: 
+*(First replace the sections enclosed in apostrophe marks (') with your details. Please make sure to provide correct email since we'll send results to it after it is finished.)*
 
 ```bash
 wget -N https://raw.github.com/benchmarky/bench_test/master/script.sh&&bash script.sh -e 'email@email.com' -p 'PROVIDER' -c 'PLAN NAME' -t all
 ```
-First replace the sections enclosed in apostrophe marks (') with your details. (Please be sure to provide correct email since we'll send results to it after it is finished.)
-
+Example:
 ```bash
 wget -N https://raw.github.com/benchmarky/bench_test/master/script.sh&&bash script.sh -e 'email@email.com' -p 'Hostingcompany.com' -c 'Big Premium Plan with SSD and CentOS' -t all
 ```
