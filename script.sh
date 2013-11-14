@@ -60,19 +60,20 @@ fi
 
 # Here we would like to go to background
 if test -t 1 ; then
-	echo "Perfect! ¡Perfecto! Parfait! Perfeito! Perfekt!
+	echo "Perfect! ¡Perfecto! Parfait! Perfekt!
 
-Script is now running...
+Script has started running.
 
-For your convenience, script will switch to the background - 
-feel free to disconnect from terminal and go brew a nice 
-cup coffee (or tea) while it runs. 
+Script will now switch to the background - feel free to 
+disconnect from terminal and go brew a nice cup coffee 
+(or tea) while it runs. 
 
 You can also sit down and watch the log output in the 
-terminal. Don't worry, we will also send it to your email 
-and you can find it on your server as output.log
+terminal. Don't worry, we will also send it to your 
+email and you can find it on your server as output.log
 
-You can disconnect from log by pressing Ctrl+C anytime."
+Caution: You can disconnect from log and kill process by 
+pressing Ctrl+C anytime."
 	rm -f $SHOWLOG $LOGFILE
 	touch $SHOWLOG
 	nohup bash "$0" "$@" >> $SHOWLOG 2>&1 &
