@@ -3,13 +3,13 @@ SCRIPT_VERSION='0.1.0'
 UPLOAD_URL='http://google.com'
 REPO_URL='https://raw.github.com/benchmarky/bench_test/master/'
 usage () {
-	echo "Usage: bash $0 [ -h ] -e email@example.com -p SuperHosting.com -c BigServer-x2 -t all [ -a ] [ -q ]" 
+	echo "Usage: bash $0 [ -h ] -e 'email@example.com' -p 'SuperHosting.com' -c 'PlanName' -t all [ -a ] [ -q ]" 
 	echo -e "\t-e - email"
 	echo -e "\t-h - show this help"
 	echo -e "\t-p - provider"
 	echo -e "\t-c - tariff"
 	echo -e "\t-t - which tests to run (comma-separated list (disk,unixbench,bandwidth) or all"
-	echo -e "\t-a - don't public results"
+	echo -e "\t-a - keep report private"
 	echo -e "\t-q - show less messages"
 }
 
@@ -60,11 +60,17 @@ fi
 
 # Here we would like to go to background
 if test -t 1 ; then
-	echo "Right now script will switch to the background,
-so you can disconnect from terminal and 
-go drink a cup of tea while it is running.
-Or please look at the log output. 
-You can disconnect from log by Ctrl+C anytime."
+	echo "Right now script will switch to the background.
+
+Feel free to disconnect from terminal and go 
+brew a nice cup coffee (or tea) while it runs. 
+
+You can also sit down and watch the log output in 
+the terminal. Don't worry, we will also send it to
+your email and you can find it on your server as
+output.log
+
+You can disconnect from log by pressing Ctrl+C anytime."
 	rm -f $SHOWLOG $LOGFILE
 	touch $SHOWLOG
 	nohup bash "$0" "$@" >> $SHOWLOG 2>&1 &
@@ -206,7 +212,7 @@ fi
 # Running benchmarks
 
 # Check server information
-echo "Collecting server information"
+echo "Now collecting server information"
 echo "==SERVERINFO==" >>$LOGFILE
 echo "ISSUE.NET: ">>$LOGFILE
 cat /etc/issue.net >>$LOGFILE
@@ -229,7 +235,7 @@ function download_benchmark () {
 	curl -L -s -w "%{speed_download}\n" -o /dev/null $2 >>$LOGFILE
 } 
 if [ $NEED_BANDWIDTH = 'yes' ]; then
-	echo "Running bandwidth tests"
+	echo "Now running bandwidth tests"
 	echo "==BANDWIDTH==" >>$LOGFILE
 	download_benchmark 'Cachefly' 'http://cachefly.cachefly.net/100mb.test'
 	download_benchmark 'Linode, Atlanta, GA, USA' 'http://speedtest.atlanta.linode.com/100MB-atlanta.bin'
@@ -253,7 +259,7 @@ fi
 if [ $NEED_DISK = 'yes' ]; then
 	echo "==DISK==" >>$LOGFILE
 	# DD
-	echo "Running dd tests"
+	echo "Now running dd tests"
 
 	echo "dd 1Mx1k fdatasync: `dd if=/dev/zero of=ddtest.iso bs=1M count=1k conv=fdatasync 2>&1`" >> $LOGFILE
 	echo "dd 64kx16k fdatasync: `dd if=/dev/zero of=ddtest.iso bs=64k count=16k conv=fdatasync 2>&1`" >> $LOGFILE
@@ -269,7 +275,7 @@ if [ $NEED_DISK = 'yes' ]; then
 	wget -q $REPO_URL/fio.conf.d/reads.ini
 	wget -q $REPO_URL/fio.conf.d/writes.ini
 	wget -q $REPO_URL/fio.conf.d/rw.ini
-	echo "Running FIO"
+	echo "Now running FIO test"
 	echo "FIO random reads:
 	`./fio reads.ini 2>&1`
 	Done" >> $LOGFILE
@@ -287,7 +293,7 @@ fi
 
 if [ $NEED_UNIXBENCH = 'yes' ]; then
 	echo "==UNIXBENCH==" >>$LOGFILE
-	echo "Running UnixBench test"
+	echo "Now running UnixBench test"
 	cd $UNIX_BENCH_DIR
 	./Run -c 1 -c `grep -c processor /proc/cpuinfo` >> $LOGFILE 2>&1
 	cd ..
@@ -303,9 +309,14 @@ fi
 
 echo "
 ### FINISH ####
-Script has done it's work.
-Please press Ctrl+C to exit.
-You will receive results by email.
-Script created 2 files: stdout.log and script.log.
-You can delete them with no mercy"
 
+Success! Script has done its work.
+
+You will receive a detailed benchmark report by email, 
+filled with results comparisons and explanations.
+
+Script created the file 'script.log' which includes
+the report's raw output log - feel free to delete it
+with no mercy.
+
+Please press Ctrl+C to exit."
