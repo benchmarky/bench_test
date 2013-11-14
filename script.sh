@@ -60,7 +60,18 @@ fi
 
 # Here we would like to go to background
 if test -t 1 ; then
-	echo "Right now script will switch to the background.
+	echo "__________________________________________________________
+
+  ___              _                   _        
+ | _ ) ___ _ _  __| |_  _ __  __ _ _ _| |___  _ 
+ | _ \/ -_) ' \/ _| ' \| '  \/ _` | '_| / / || |
+ |___/\___|_||_\__|_||_|_|_|_\__,_|_| |_\_\\_, |
+                                           |__/                        
+__________________________________________________________	
+
+Perfect! Script is now running.
+
+For your convenience, script will switch to the background.
 
 Feel free to disconnect from terminal and go 
 brew a nice cup coffee (or tea) while it runs. 
