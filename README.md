@@ -3,7 +3,7 @@
 This tool is a lightweight benchmarking script made for testing CPU, Disk (HDD or SSD) and Bandwidth performance in Linux servers. The tool is composed of simple and trusted open-source benchmarking suites.
 ### What will it do?
 This benchmark will:
-* Download and install packages necesarry to run benchmark test (don't worry, it will clean up after)
+* Download and install packages necessary to run benchmark test (don't worry, it will clean up after)
 * Download and run Unixbench, Disk and/or Bandwidth tests
 * Upload tests results over to Benchmarky.com to see how it stacks up against others
 
@@ -22,7 +22,7 @@ wget -N https://raw.github.com/benchmarky/bench_test/master/script.sh&&bash scri
 ### Noteworthy tips & comments:
 * This script has been tested on Linux environments only, including Ubuntu, Debian, and CentOS.
 * If possible, please pause any and all resource intensive services you are running such as databases, web server, etc. This will help improve the consistency of benchmark results.
-* WARNING: You run this script at your own risk. Benchmarky accepts no responsability for any damage this script may cause.
+* WARNING: You run this script at your own risk. Benchmarky accepts no responsibility for any damage this script may cause.
 
 For a reference guide about script parameters please run the script with -h parameter, like the following example:
 
