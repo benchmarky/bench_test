@@ -64,10 +64,14 @@ if test -t 1 ; then
 
 Script has started running.
 
-Script will now switch to the background - feel free to 
-disconnect from terminal and go brew a nice cup coffee 
-(or tea) while it runs. 
-
+     ( (
+      ) )        Script will now switch to the background.
+     .--/.
+    |'---'|-,    feel free to disconnect from terminal and 
+    |     | ))   go brew a nice cup coffee (or tea) while 
+    |     |-'    it runs.
+    '.___.'
+          
 You can also sit down and watch the log output in the 
 terminal. Don't worry, we will also send it to your 
 email and you can find it on your server as output.log
