@@ -67,14 +67,14 @@ Script has started running.
      ( (
       ) )        Script will now switch to the background.
      .--/.
-    |'---'|-,    feel free to disconnect from terminal and 
+    |'---'|-,    Feel free to disconnect from terminal and 
     |     | ))   go brew a nice cup coffee (or tea) while 
-    |     |-'    it runs.
+    |     |-'    it is running.
     '.___.'
           
-You can also sit down and watch the log output in the 
+You may also sit down and watch the log output in the 
 terminal. Don't worry, we will also send it to your 
-email and you can find it on your server as output.log
+email and you can find it on your server as script.log
 
 Caution: You can disconnect from log and kill process by 
 pressing Ctrl+C anytime."
