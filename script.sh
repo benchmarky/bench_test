@@ -80,8 +80,8 @@ You may also sit down and watch the log output in the
 terminal. Don't worry, we will also send it to your 
 email and you can find it on your server as script.log
 
-Caution: You can disconnect from log and kill process by 
-pressing Ctrl+C anytime."
+Caution: You can disconnect from log by pressing Ctrl+C 
+anytime."
 	rm -f $SHOWLOG $LOGFILE
 	touch $SHOWLOG
 	nohup bash "$0" "$@" >> $SHOWLOG 2>&1 &
