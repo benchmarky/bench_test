@@ -12,11 +12,11 @@ To start benchmarking simply access your server's terminal and run:
 *(First replace the sections enclosed in apostrophe marks (') with your details. Please make sure to provide correct email since we'll send results to it after it is finished.)*
 
 ```bash
-wget -N https://raw.github.com/benchmarky/bench_test/master/script.sh&&bash script.sh -e 'email@email.com' -p 'PROVIDER' -c 'PLAN NAME' -t all
+wget -N https://raw.github.com/benchmarky/bench_test/master/script.sh&&bash script.sh -e 'email@email.com' -p 'PROVIDER' -l 'PLAN NAME' -c 'TARIFF' -t all
 ```
 Example:
 ```bash
-wget -N https://raw.github.com/benchmarky/bench_test/master/script.sh&&bash script.sh -e 'email@email.com' -p 'Hostingcompany.com' -c 'Big Premium Plan with SSD and CentOS' -t all
+wget -N https://raw.github.com/benchmarky/bench_test/master/script.sh&&bash script.sh -e 'email@email.com' -p 'Hostingcompany.com' -l 'Big Premium Plan with SSD and CentOS' -c '$24' -t all
 ```
 
 ### Noteworthy tips & comments:
@@ -35,7 +35,8 @@ Usage: bash script.sh [ -h ] -e 'email@email.com' -p 'Hosting Company, Inc.' -c 
 	-e - email
 	-h - show this help
 	-p - provider
-	-c - tariff
+	-l - plan
+	-c - tariff (cost per month)
 	-t - which tests to run (comma-separated list (disk,unixbench,bandwidth) or all
 	-a - keep report private
 	-q - show less messages
