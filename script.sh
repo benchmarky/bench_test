@@ -236,6 +236,10 @@ if [ -f /sys/block/sda/device/vendor ]; then
 fi
 echo "MEMORY: " >> $LOGFILE
 free >> $LOGFILE
+echo "HOSTNAME: " >> $LOGFILE
+hostname >> $LOGFILE
+echo "FQDN: " >> $LOGFILE
+hostname --fqdn >> $LOGFILE
 
 function download_benchmark () {
 	echo "Downloading from $1 ($2)" >>$LOGFILE
