@@ -1,13 +1,14 @@
 #!/bin/bash
 SCRIPT_VERSION='0.1.0'
 UPLOAD_URL='http://google.com'
-REPO_URL='https://raw.github.com/benchmarky/bench_test/master/'
+REPO_URL='https://raw.github.com/benchmarky/benchmarky-linux/master/'
 usage () {
-	echo "Usage: bash $0 [ -h ] -e 'email@example.com' -p 'SuperHosting.com' -c 'PlanName' -t all [ -a ] [ -q ]" 
+	echo "Usage: bash $0 [ -h ] -e 'email@example.com' -p 'SuperHosting.com' -l 'PlanName' -c '$24' -t all [ -a ] [ -q ]" 
 	echo -e "\t-e - email"
 	echo -e "\t-h - show this help"
 	echo -e "\t-p - provider"
-	echo -e "\t-c - tariff"
+	echo -e "\t-l - plan"
+	echo -e "\t-c - tariff (cost per month)"
 	echo -e "\t-t - which tests to run (comma-separated list (disk,unixbench,bandwidth) or all"
 	echo -e "\t-a - keep report private"
 	echo -e "\t-q - show less messages"
@@ -27,8 +28,9 @@ QUIETLY='false'
 EMAIL='null'
 PROVIDER='null'
 TARIFF='null'
+PLAN='null'
 
-while getopts "he:p:t:c:aq" opt; do
+while getopts "he:p:l:t:c:aq" opt; do
 	case "$opt" in
 	h)
 		usage
@@ -37,6 +39,8 @@ while getopts "he:p:t:c:aq" opt; do
 	e)	EMAIL="$OPTARG"
 		;;	
 	p)	PROVIDER="$OPTARG"
+		;;	
+	l)	PLAN="$OPTARG"
 		;;	
 	c)	TARIFF="$OPTARG"
 		;;	
@@ -50,7 +54,7 @@ while getopts "he:p:t:c:aq" opt; do
 done
 
 # Validate parameters
-if [ "$EMAIL" = 'null' -o "$PROVIDER" = 'null' -o "$TARIFF" = 'null' ]; then
+if [ "$EMAIL" = 'null' -o "$PROVIDER" = 'null' -o "$TARIFF" = 'null' -o "$PLAN" = 'null' ]; then
 	usage
 	exit 0
 fi
@@ -128,6 +132,7 @@ echo "VERSION: ${SCRIPT_VERSION}" >>$LOGFILE
 echo "==PARAMETERS==" >>$LOGFILE
 echo "EMAIL: ${EMAIL}" >>$LOGFILE
 echo "PROVIDER: ${PROVIDER}" >>$LOGFILE
+echo "PLAN: ${PLAN}" >>$LOGFILE
 echo "TARIFF: ${TARIFF}" >>$LOGFILE
 echo "TESTS: ${TESTS}" >>$LOGFILE
 echo "ANONYOMOUS: ${ANONYOMOUS}" >>$LOGFILE
