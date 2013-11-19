@@ -1,7 +1,9 @@
 #!/bin/bash
-SCRIPT_VERSION='0.1.0'
+SCRIPT_VERSION='0.1.99'
 UPLOAD_URL='http://google.com'
 REPO_URL='https://raw.github.com/benchmarky/benchmarky-linux/master/'
+IP_URL='http://ip.scukonick.us'
+
 usage () {
 	echo "Usage: bash $0 [ -h ] -e 'email@example.com' -p 'SuperHosting.com' -l 'PlanName' -c '\$24' -t all [ -a ] [ -q ]" 
 	echo -e "\t-e - email"
@@ -248,6 +250,8 @@ echo "HOSTNAME: " >> $LOGFILE
 hostname >> $LOGFILE
 echo "FQDN: " >> $LOGFILE
 hostname --fqdn >> $LOGFILE
+echo "IP: " >> $LOGFILE
+curl $IP_URL >> $LOGFILE
 
 function download_benchmark () {
 	echo "Downloading from $1 ($2)" >>$LOGFILE
