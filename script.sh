@@ -3,7 +3,7 @@ SCRIPT_VERSION='0.1.0'
 UPLOAD_URL='http://google.com'
 REPO_URL='https://raw.github.com/benchmarky/benchmarky-linux/master/'
 usage () {
-	echo "Usage: bash $0 [ -h ] -e 'email@example.com' -p 'SuperHosting.com' -l 'PlanName' -c '$24' -t all [ -a ] [ -q ]" 
+	echo "Usage: bash $0 [ -h ] -e 'email@example.com' -p 'SuperHosting.com' -l 'PlanName' -c '\$24' -t all [ -a ] [ -q ]" 
 	echo -e "\t-e - email"
 	echo -e "\t-h - show this help"
 	echo -e "\t-p - provider"
@@ -29,8 +29,9 @@ EMAIL='null'
 PROVIDER='null'
 TARIFF='null'
 PLAN='null'
+ID='null'
 
-while getopts "he:p:l:t:c:aq" opt; do
+while getopts "he:p:l:t:c:i:aq" opt; do
 	case "$opt" in
 	h)
 		usage
@@ -45,6 +46,8 @@ while getopts "he:p:l:t:c:aq" opt; do
 	c)	TARIFF="$OPTARG"
 		;;	
 	t)	TESTS="$OPTARG"
+		;;	
+	i)	ID="$OPTARG"
 		;;	
 	a)	ANONYOMOUS='yes'
 		;;
@@ -136,7 +139,7 @@ echo "PLAN: ${PLAN}" >>$LOGFILE
 echo "TARIFF: ${TARIFF}" >>$LOGFILE
 echo "TESTS: ${TESTS}" >>$LOGFILE
 echo "ANONYOMOUS: ${ANONYOMOUS}" >>$LOGFILE
-
+echo "ID: ${ID}" >>$LOGFILE
 # We can test bandwidth without additional packages
 # For test unixbench and disk we need them
 function requires() {
