@@ -120,6 +120,7 @@ else
 fi
 
 # Prepare environment
+echo "===PREPARING==="
 echo "Creating directory $TMPDIR"
 rm -rf $TMPDIR
 mkdir -p $TMPDIR 
@@ -130,11 +131,11 @@ cd $TMPDIR
 # touch log file
 #touch $LOGFILE
 DATE=`date`
-echo "==DATE==" >>$LOGFILE
-echo $DATE  >> $LOGFILE
-echo "==VERSION==" >>$LOGFILE
-echo "VERSION: ${SCRIPT_VERSION}" >>$LOGFILE
-echo "==PARAMETERS==" >>$LOGFILE
+echo "DATE: " >>$LOGFILE
+echo "$DATE"  >> $LOGFILE
+echo "VERSION: " >>$LOGFILE
+echo "${SCRIPT_VERSION}" >>$LOGFILE
+echo "=PARAMETERS=" >>$LOGFILE
 echo "EMAIL: ${EMAIL}" >>$LOGFILE
 echo "PROVIDER: ${PROVIDER}" >>$LOGFILE
 echo "PLAN: ${PLAN}" >>$LOGFILE
@@ -230,7 +231,8 @@ fi
 
 # Check server information
 echo "Now collecting server information"
-echo "==SERVERINFO==" >>$LOGFILE
+echo "" >>$LOGFILE
+echo "===SERVERINFO===" >>$LOGFILE
 echo "ISSUE.NET: ">>$LOGFILE
 cat /etc/issue.net >>$LOGFILE
 echo "PROCINFO: " >>$LOGFILE
@@ -259,7 +261,7 @@ function download_benchmark () {
 } 
 if [ $NEED_BANDWIDTH = 'yes' ]; then
 	echo "Now running bandwidth tests"
-	echo "==BANDWIDTH==" >>$LOGFILE
+	echo "===BANDWIDTH===" >>$LOGFILE
 	download_benchmark 'Cachefly' 'http://cachefly.cachefly.net/100mb.test'
 	download_benchmark 'Linode, Atlanta, GA, USA' 'http://speedtest.atlanta.linode.com/100MB-atlanta.bin'
 	download_benchmark 'Linode, Dallas, TX, USA' 'http://speedtest.newark.linode.com/100MB-newark.bin'
@@ -280,7 +282,8 @@ if [ $NEED_BANDWIDTH = 'yes' ]; then
 fi
 
 if [ $NEED_DISK = 'yes' ]; then
-	echo "==DISK==" >>$LOGFILE
+	echo "" >>$LOGFILE
+	echo "===DISK===" >>$LOGFILE
 	# DD
 	echo "Now running dd tests"
 
@@ -315,7 +318,8 @@ fi
 
 
 if [ $NEED_UNIXBENCH = 'yes' ]; then
-	echo "==UNIXBENCH==" >>$LOGFILE
+	echo "" >>$LOGFILE
+	echo "===UNIXBENCH===" >>$LOGFILE
 	echo "Now running UnixBench test"
 	cd $UNIX_BENCH_DIR
 	./Run -c 1 -c `grep -c processor /proc/cpuinfo` >> $LOGFILE 2>&1
