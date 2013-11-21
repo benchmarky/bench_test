@@ -267,7 +267,7 @@ hostname >> $LOGFILE
 echo "FQDN: " >> $LOGFILE
 hostname --fqdn >> $LOGFILE
 echo "IP: " >> $LOGFILE
-curl $IP_URL >> $LOGFILE
+curl $IP_URL >> $LOGFILE 2>/dev/null
 
 function download_benchmark () {
 	echo "Downloading from $1 ($2)" >>$LOGFILE
