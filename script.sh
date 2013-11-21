@@ -33,6 +33,18 @@ TARIFF='null'
 PLAN='null'
 ID='null'
 
+# Colors
+NONE="\e[0;0m"    # unsets color to term's fg color
+
+# regular colors
+K="\e[0;30m"    # black
+R="\e[0;31m"    # red
+G="\e[0;32m"    # green
+Y="\e[0;33m"    # yellow
+B="\e[0;34m"    # blue
+M="\e[0;35m"    # magenta
+C="\e[0;36m"    # cyan
+
 while getopts "he:p:l:t:c:i:aq" opt; do
 	case "$opt" in
 	h)
@@ -69,7 +81,7 @@ fi
 
 # Here we would like to go to background
 if test -t 1 ; then
-	echo "Perfect! ¡Perfecto! Parfait! Perfekt!
+	echo -e "${G}Perfect! ¡Perfecto! Parfait! Perfekt!
 
 Script has started running.
 
@@ -85,12 +97,12 @@ You may also sit down and watch the log output in the
 terminal. Don't worry, we will also send it to your 
 email and you can find it on your server as script.log
 
-Caution: You can disconnect from log by pressing Ctrl+C 
-anytime."
+${Y}Caution:${G} You can disconnect from log by pressing Ctrl+C 
+anytime.${NONE}"
 	rm -f $SHOWLOG $LOGFILE
 	touch $SHOWLOG
 	nohup bash "$0" "$@" >> $SHOWLOG 2>&1 &
-	tail -F $SHOWLOG -n 25
+	tail -F $SHOWLOG -n 25 
 	exit 0
 fi
 sleep 20
@@ -120,6 +132,8 @@ else
 fi
 
 # Prepare environment
+echo ""
+echo -e "${G}Now preparing for the script run${NONE}"
 echo "===PREPARING==="
 echo "Creating directory $TMPDIR"
 rm -rf $TMPDIR
@@ -230,8 +244,8 @@ fi
 # Running benchmarks
 
 # Check server information
-echo "Now collecting server information"
 echo "" >>$LOGFILE
+echo -e "${G}Now collecting server information${NONE}"
 echo "===SERVERINFO===" >>$LOGFILE
 echo "ISSUE.NET: ">>$LOGFILE
 cat /etc/issue.net >>$LOGFILE
@@ -260,7 +274,8 @@ function download_benchmark () {
 	curl -L -s -w "%{speed_download}\n" -o /dev/null $2 >>$LOGFILE
 } 
 if [ $NEED_BANDWIDTH = 'yes' ]; then
-	echo "Now running bandwidth tests"
+	echo "" >> $LOGFILE
+	echo -e "${G}Now running bandwidth tests${NONE}"
 	echo "===BANDWIDTH===" >>$LOGFILE
 	download_benchmark 'Cachefly' 'http://cachefly.cachefly.net/100mb.test'
 	download_benchmark 'Linode, Atlanta, GA, USA' 'http://speedtest.atlanta.linode.com/100MB-atlanta.bin'
@@ -283,9 +298,9 @@ fi
 
 if [ $NEED_DISK = 'yes' ]; then
 	echo "" >>$LOGFILE
+	echo -e "${G}Now running disk tests${NONE}"
 	echo "===DISK===" >>$LOGFILE
 	# DD
-	echo "Now running dd tests"
 
 	echo "dd 1Mx1k fdatasync: `dd if=/dev/zero of=ddtest.iso bs=1M count=1k conv=fdatasync 2>&1`" >> $LOGFILE
 	echo "dd 64kx16k fdatasync: `dd if=/dev/zero of=ddtest.iso bs=64k count=16k conv=fdatasync 2>&1`" >> $LOGFILE
@@ -301,7 +316,6 @@ if [ $NEED_DISK = 'yes' ]; then
 	wget -q $REPO_URL/fio.conf.d/reads.ini
 	wget -q $REPO_URL/fio.conf.d/writes.ini
 	wget -q $REPO_URL/fio.conf.d/rw.ini
-	echo "Now running FIO test"
 	echo "FIO random reads:
 	`./fio reads.ini 2>&1`
 	Done" >> $LOGFILE
@@ -319,8 +333,8 @@ fi
 
 if [ $NEED_UNIXBENCH = 'yes' ]; then
 	echo "" >>$LOGFILE
+	echo -e "${G}Now running UnixBench test${NONE}"
 	echo "===UNIXBENCH===" >>$LOGFILE
-	echo "Now running UnixBench test"
 	cd $UNIX_BENCH_DIR
 	./Run -c 1 -c `grep -c processor /proc/cpuinfo` >> $LOGFILE 2>&1
 	cd ..
@@ -334,7 +348,7 @@ if [ "$TO_INSTALL" != '' ]; then
   $SUDO $PACKAGE_MANAGER remove -y $TO_INSTALL $MANAGER_OPTS
 fi
 
-echo "
+echo -e "${G}
 ### FINISH ####
 
 Success! ¡Éxito! Succès! Erfolg!
@@ -348,4 +362,4 @@ Script created the file 'script.log' which includes
 the report's raw output log - feel free to delete it
 with no mercy.
 
-Please press Ctrl+C to exit."
+${Y}Please press Ctrl+C to exit.${NONE}"
