@@ -133,7 +133,7 @@ fi
 
 # Prepare environment
 echo ""
-echo -e "${G}Now preparing for the script run${NONE}"
+echo -e "Preparing environment for the script to run"
 echo "===PREPARING==="
 echo "Creating directory $TMPDIR"
 rm -rf $TMPDIR
@@ -145,11 +145,12 @@ cd $TMPDIR
 # touch log file
 #touch $LOGFILE
 DATE=`date`
-echo "DATE: " >>$LOGFILE
-echo "$DATE"  >> $LOGFILE
-echo "VERSION: " >>$LOGFILE
+echo "===BENCHMARK DETAILS===" >>$LOGFILE
+echo "DATE:" >>$LOGFILE
+echo "$DATE" >>$LOGFILE
+echo "VERSION:" >>$LOGFILE
 echo "${SCRIPT_VERSION}" >>$LOGFILE
-echo "=PARAMETERS=" >>$LOGFILE
+echo "===PARAMETERS DATA START===" >>$LOGFILE
 echo "EMAIL: ${EMAIL}" >>$LOGFILE
 echo "PROVIDER: ${PROVIDER}" >>$LOGFILE
 echo "PLAN: ${PLAN}" >>$LOGFILE
@@ -157,8 +158,8 @@ echo "TARIFF: ${TARIFF}" >>$LOGFILE
 echo "TESTS: ${TESTS}" >>$LOGFILE
 echo "ANONYOMOUS: ${ANONYOMOUS}" >>$LOGFILE
 echo "ID: ${ID}" >>$LOGFILE
-# We can test bandwidth without additional packages
-# For test unixbench and disk we need them
+# We can test bandwidth without any additional packages,
+# but we need them for Unixbench and disk benchmark
 function requires() {
   if [ `$1 >/dev/null; echo $?` -ne 0 ]; then
     TO_INSTALL="$TO_INSTALL $2"
@@ -209,7 +210,7 @@ if [ "`whoami`" != "root" ]; then
 fi
 
 if [ "$TO_INSTALL" != '' ]; then
-  echo "==PACKAGES=="
+  echo "===PACKAGES==="
   echo "Using $PACKAGE_MANAGER to install $TO_INSTALL"
   echo "Using $PACKAGE_MANAGER to install $TO_INSTALL" >>$LOGFILE
   if [ "$UPDATE" != '' ]; then
@@ -225,7 +226,7 @@ FIO_DIR=fio-$FIO_VERSION
 UNIX_BENCH_VERSION=5.1.3
 UNIX_BENCH_DIR=UnixBench-$UNIX_BENCH_VERSION
 
-echo "==TESTSVERSIONS==" >>$LOGFILE
+echo "===TESTS VERSIONS===" >>$LOGFILE
 echo "FIO_VERSION: ${FIO_VERSION}" >>$LOGFILE
 echo "FIO_DIR: ${FIO_DIR}" >>$LOGFILE
 echo "UNIX_BENCH_VERSION: ${UNIX_BENCH_VERSION}" >>$LOGFILE
@@ -245,13 +246,13 @@ fi
 
 # Check server information
 echo "" >>$LOGFILE
-echo -e "${G}Now collecting server information${NONE}"
-echo "===SERVERINFO===" >>$LOGFILE
-echo "ISSUE.NET: ">>$LOGFILE
+echo -e "Now collecting server information"
+echo "===SERVER INFORMATION===" >>$LOGFILE
+echo "ISSUE.NET:">>$LOGFILE
 cat /etc/issue.net >>$LOGFILE
-echo "PROCINFO: " >>$LOGFILE
+echo "PROCINFO:" >>$LOGFILE
 cat /proc/cpuinfo >>$LOGFILE
-echo "DISKS: " >> $LOGFILE
+echo "DISKS:" >> $LOGFILE
 df >> $LOGFILE
 if [ -f /sys/block/sda/device/model ]; then
 	cat /sys/block/sda/device/model >> $LOGFILE
@@ -260,13 +261,13 @@ fi
 if [ -f /sys/block/sda/device/vendor ]; then
 	cat /sys/block/sda/device/vendor >> $LOGFILE
 fi
-echo "MEMORY: " >> $LOGFILE
+echo "MEMORY:" >> $LOGFILE
 free >> $LOGFILE
-echo "HOSTNAME: " >> $LOGFILE
+echo "HOSTNAME:" >> $LOGFILE
 hostname >> $LOGFILE
-echo "FQDN: " >> $LOGFILE
+echo "FQDN:" >> $LOGFILE
 hostname --fqdn >> $LOGFILE
-echo "IP: " >> $LOGFILE
+echo "IP:" >> $LOGFILE
 curl $IP_URL >> $LOGFILE 2>/dev/null
 
 function download_benchmark () {
@@ -275,8 +276,8 @@ function download_benchmark () {
 } 
 if [ $NEED_BANDWIDTH = 'yes' ]; then
 	echo "" >> $LOGFILE
-	echo -e "${G}Now running bandwidth tests${NONE}"
-	echo "===BANDWIDTH===" >>$LOGFILE
+	echo -e "Now running bandwidth test"
+	echo "===BANDWIDTH TEST===" >>$LOGFILE
 	download_benchmark 'Cachefly' 'http://cachefly.cachefly.net/100mb.test'
 	download_benchmark 'Linode, Atlanta, GA, USA' 'http://speedtest.atlanta.linode.com/100MB-atlanta.bin'
 	download_benchmark 'Linode, Dallas, TX, USA' 'http://speedtest.newark.linode.com/100MB-newark.bin'
@@ -298,8 +299,8 @@ fi
 
 if [ $NEED_DISK = 'yes' ]; then
 	echo "" >>$LOGFILE
-	echo -e "${G}Now running disk tests${NONE}"
-	echo "===DISK===" >>$LOGFILE
+	echo -e "Now running disk test"
+	echo "===DISK TEST===" >>$LOGFILE
 	# DD
 
 	echo "dd 1Mx1k fdatasync: `dd if=/dev/zero of=ddtest.iso bs=1M count=1k conv=fdatasync 2>&1`" >> $LOGFILE
@@ -333,8 +334,8 @@ fi
 
 if [ $NEED_UNIXBENCH = 'yes' ]; then
 	echo "" >>$LOGFILE
-	echo -e "${G}Now running UnixBench test${NONE}"
-	echo "===UNIXBENCH===" >>$LOGFILE
+	echo -e "Now running UnixBench test"
+	echo "===UNIXBENCH TEST===" >>$LOGFILE
 	cd $UNIX_BENCH_DIR
 	./Run -c 1 -c `grep -c processor /proc/cpuinfo` >> $LOGFILE 2>&1
 	cd ..
@@ -348,8 +349,7 @@ if [ "$TO_INSTALL" != '' ]; then
   $SUDO $PACKAGE_MANAGER remove -y $TO_INSTALL $MANAGER_OPTS
 fi
 
-echo -e "${G}
-### FINISH ####
+echo -e "### FINISH ####
 
 Success! ¡Éxito! Succès! Erfolg!
 
@@ -362,4 +362,4 @@ Script created the file 'script.log' which includes
 the report's raw output log - feel free to delete it
 with no mercy.
 
-${Y}Please press Ctrl+C to exit.${NONE}"
+Please press Ctrl+C to exit."
