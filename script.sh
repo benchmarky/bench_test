@@ -81,7 +81,7 @@ fi
 
 # Here we would like to go to background
 if test -t 1 ; then
-	echo -e "${G}Perfect! ¡Perfecto! Parfait! Perfekt!
+	echo -e "Perfect! ¡Perfecto! Parfait! Perfekt!
 
 Script has started running.
 
@@ -97,8 +97,8 @@ You may also sit down and watch the log output in the
 terminal. Don't worry, we will also send it to your 
 email and you can find it on your server as script.log
 
-${Y}Caution:${G} You can disconnect from log by pressing Ctrl+C 
-anytime.${NONE}"
+Caution: You can disconnect from log by pressing Ctrl+C 
+anytime."
 	rm -f $SHOWLOG $LOGFILE
 	touch $SHOWLOG
 	nohup bash "$0" "$@" >> $SHOWLOG 2>&1 &
@@ -132,7 +132,7 @@ else
 fi
 
 # Prepare environment
-echo ""
+echo "BENCHMARKY LINUX BENCHMARK"
 echo -e "Preparing environment for the script to run"
 echo "===PREPARING==="
 echo "Creating directory $TMPDIR"
